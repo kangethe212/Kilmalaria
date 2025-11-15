@@ -35,7 +35,7 @@ export default function LandingPage() {
               </div>
               <div>
                 <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
-                  Climalaria
+                  Kilmalaria
                 </span>
                 <p className="text-xs text-gray-600 font-medium">AI-Powered Malaria Intelligence</p>
               </div>
@@ -161,7 +161,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Features</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover how Climalaria helps predict, prevent, and protect against malaria outbreaks.
+              Discover how Kilmalaria helps predict, prevent, and protect against malaria outbreaks.
             </p>
           </div>
           
@@ -277,7 +277,7 @@ export default function LandingPage() {
             </div>
             <h2 className="text-5xl font-black text-gray-900 mb-6">How The System Works</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Climalaria integrates advanced machine learning, epidemiological data, and climate science 
+              Kilmalaria integrates advanced machine learning, epidemiological data, and climate science 
               to deliver real-time malaria outbreak predictions through a simple, intuitive interface.
             </p>
           </div>
@@ -372,7 +372,7 @@ export default function LandingPage() {
 
           {/* User Journey */}
           <div className="mb-20">
-            <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">Your Journey with Climalaria</h3>
+            <h3 className="text-3xl font-bold text-center text-gray-900 mb-12">Your Journey with Kilmalaria</h3>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="text-center">
                 <div className="bg-gradient-to-br from-blue-500 to-blue-600 text-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg transform hover:scale-110 transition">
@@ -420,7 +420,7 @@ export default function LandingPage() {
           <div className="text-center bg-gradient-to-br from-blue-600 to-green-600 rounded-3xl p-12 shadow-2xl">
             <h3 className="text-3xl font-bold text-white mb-4">Ready to Start Predicting?</h3>
             <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-              Join healthcare professionals using Climalaria to save lives through early malaria detection.
+              Join healthcare professionals using Kilmalaria to save lives through early malaria detection.
             </p>
             <Link 
               to="/auth" 
@@ -438,9 +438,9 @@ export default function LandingPage() {
       <div id="about" className="bg-gradient-to-br from-blue-50 to-blue-100 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-6">About Climalaria</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">About Kilmalaria</h2>
             <p className="text-lg text-gray-700 max-w-4xl mx-auto leading-relaxed">
-              Climalaria is an intelligent malaria prediction platform designed to assist in the early detection and 
+              Kilmalaria is an intelligent malaria prediction platform designed to assist in the early detection and 
               proactive management of malaria outbreaks across Kenyan counties. This innovative application harnesses 
               the power of machine learning, trained on three years of historical data—including monthly malaria case 
               reports, temperature trends, and rainfall patterns—for all counties in Kenya.
@@ -499,7 +499,7 @@ export default function LandingPage() {
             </div>
             <h2 className="text-5xl font-black text-gray-900 mb-6">Powered by Cutting-Edge AI</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Climalaria leverages state-of-the-art machine learning algorithms and modern web technologies 
+              Kilmalaria leverages state-of-the-art machine learning algorithms and modern web technologies 
               to deliver accurate, reliable malaria predictions in real-time.
             </p>
           </div>
@@ -598,7 +598,7 @@ export default function LandingPage() {
             </div>
             <h2 className="text-5xl font-black text-gray-900 mb-6">Making a Difference</h2>
             <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              Climalaria empowers healthcare professionals and communities to fight malaria through data-driven insights.
+              Kilmalaria empowers healthcare professionals and communities to fight malaria through data-driven insights.
             </p>
           </div>
 
@@ -652,7 +652,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">About the Developer</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The mind behind Climalaria - combining technology and innovation to combat malaria.
+              The mind behind Kilmalaria - combining technology and innovation to combat malaria.
             </p>
           </div>
 
@@ -669,7 +669,7 @@ export default function LandingPage() {
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Passionate about leveraging machine learning and web technologies to solve real-world health challenges. 
-                Developed the complete Climalaria platform - from ML models to the interactive frontend - to democratize 
+                Developed the complete Kilmalaria platform - from ML models to the interactive frontend - to democratize 
                 access to malaria prediction insights across Kenya.
               </p>
               <div className="mt-8 flex flex-wrap justify-center gap-3">
@@ -689,7 +689,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
             <p className="text-xl text-gray-600">
-              Find answers to common questions about Climalaria.
+              Find answers to common questions about Kilmalaria.
             </p>
           </div>
 
@@ -757,13 +757,13 @@ export default function LandingPage() {
                 onClick={() => toggleFaq(3)}
                 className="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition"
               >
-                <span className="font-semibold text-lg text-gray-900">Can I use Climalaria on mobile devices?</span>
+                <span className="font-semibold text-lg text-gray-900">Can I use Kilmalaria on mobile devices?</span>
                 {openFaq === 3 ? <ChevronUp className="h-5 w-5 text-blue-600" /> : <ChevronDown className="h-5 w-5 text-blue-600" />}
               </button>
               {openFaq === 3 && (
                 <div className="px-6 py-4 bg-gray-50 border-t">
                   <p className="text-gray-600">
-                    Yes, Climalaria is fully responsive and works on all devices, including smartphones and tablets, 
+                    Yes, Kilmalaria is fully responsive and works on all devices, including smartphones and tablets, 
                     allowing you to access predictions on the go.
                   </p>
                 </div>
@@ -780,7 +780,7 @@ export default function LandingPage() {
             Ready to predict malaria outbreaks?
           </h2>
           <p className="text-xl text-blue-100 mb-8">
-            Join Climalaria today and help protect communities across Kenya.
+            Join Kilmalaria today and help protect communities across Kenya.
           </p>
           <div className="flex justify-center space-x-4">
             <Link to="/auth" className="bg-white text-blue-600 px-8 py-4 rounded-lg font-bold hover:bg-gray-100 transition-colors shadow-lg text-lg">
@@ -815,7 +815,7 @@ export default function LandingPage() {
                   </div>
                   <div>
                     <h4 className="font-semibold text-gray-900 mb-1">Email</h4>
-                    <p className="text-gray-600">info@climalaria.com</p>
+                    <p className="text-gray-600">info@kilmalaria.com</p>
                   </div>
                 </div>
 
@@ -886,7 +886,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center space-x-2 mb-4">
                 <Activity className="h-8 w-8 text-blue-400" />
-                <span className="text-2xl font-bold">Climalaria</span>
+                <span className="text-2xl font-bold">Kilmalaria</span>
               </div>
               <p className="text-gray-400">
                 Predict, prevent, and protect against malaria outbreaks with data-driven insights.
@@ -930,7 +930,7 @@ export default function LandingPage() {
 
           <div className="border-t border-gray-800 pt-8 text-center">
             <p className="text-gray-400">
-              © 2025 Climalaria. All rights reserved.
+              © 2025 Kilmalaria. All rights reserved.
             </p>
           </div>
         </div>

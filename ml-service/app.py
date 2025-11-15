@@ -708,7 +708,7 @@ def predict_from_file():
                 'resource_requirements': resource_summary,
                 'detailed_predictions': predictions,
                 'report_classification': 'WHO Epidemiological Intelligence Report',
-                'report_generated_by': 'Climalaria ML Intelligence System v2.0',
+                'report_generated_by': 'Kilmalaria ML Intelligence System v2.0',
                 'data_quality': 'Clinical Grade - Validated',
                 'next_update_recommended': (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
             })
@@ -751,7 +751,7 @@ def index():
     except:
         # Fallback to JSON if template not found
         return jsonify({
-            'service': 'Climalaria ML Service',
+            'service': 'Kilmalaria ML Service',
             'version': '1.0.0',
             'status': '✅ ONLINE',
             'model_accuracy': '97.89%',

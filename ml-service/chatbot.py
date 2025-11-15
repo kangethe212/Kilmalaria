@@ -470,7 +470,7 @@ Want to know about prevention or symptoms?"""
             
             'counties_info': {
                 'keywords': ['county', 'counties', 'region', 'area', 'where', 'location'],
-                'response': f"""🗺️ **Kenyan Counties Covered by Climalaria**
+                'response': f"""🗺️ **Kenyan Counties Covered by Kilmalaria**
 
 I can provide malaria predictions for **18 Kenyan counties**:
 
@@ -557,8 +557,8 @@ Try asking: "Predict malaria in Kisumu for 6 months" to see it in action!"""
             },
             
             'about': {
-                'keywords': ['about', 'what is', 'climalaria', 'platform', 'system'],
-                'response': """🏥 **About Climalaria**
+                'keywords': ['about', 'what is', 'kilmalaria', 'platform', 'system'],
+                'response': """🏥 **About Kilmalaria**
 
 **Mission:**
 To empower communities and health workers with AI-powered malaria predictions and comprehensive information for early detection and prevention.
@@ -599,7 +599,7 @@ How can I help you today?"""
             
             'greetings': {
                 'keywords': ['hello', 'hi', 'hey', 'good morning', 'good evening', 'greetings'],
-                'response': """👋 **Hello! I'm Climalaria AI - Your Malaria Expert!**
+                'response': """👋 **Hello! I'm Kilmalaria AI - Your Malaria Expert!**
 
 I can help you with:
 

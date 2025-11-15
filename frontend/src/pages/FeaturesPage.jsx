@@ -93,7 +93,7 @@ export default function FeaturesPage() {
             </div>
             <div>
               <h1 className="text-5xl font-black text-white">Features</h1>
-              <p className="text-xl text-blue-100 mt-2">Discover the power of Climalaria</p>
+              <p className="text-xl text-blue-100 mt-2">Discover the power of Kilmalaria</p>
             </div>
           </div>
           
@@ -153,7 +153,7 @@ export default function FeaturesPage() {
           <Microscope className="w-16 h-16 text-white mx-auto mb-6" />
           <h2 className="text-4xl font-black text-white mb-4">Ready to Get Started?</h2>
           <p className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto">
-            Join health professionals and researchers using Climalaria to predict and prevent malaria outbreaks.
+            Join health professionals and researchers using Kilmalaria to predict and prevent malaria outbreaks.
           </p>
           <Link
             to="/auth"

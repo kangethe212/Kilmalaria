@@ -166,7 +166,7 @@ export default function ChatPage() {
             </button>
             <div className="flex items-center space-x-2">
               <Activity className="h-6 w-6 text-blue-600" />
-              <span className="text-xl font-bold text-blue-600">Climalaria</span>
+              <span className="text-xl font-bold text-blue-600">Kilmalaria</span>
             </div>
           </div>
           <div className="flex items-center space-x-2 text-sm text-gray-600">

@@ -75,7 +75,7 @@ Uasin Gishu,20.1,110.8,55,3,2024`
     const url = window.URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'climalaria_medical_template.csv'
+    a.download = 'kilmalaria_medical_template.csv'
     document.body.appendChild(a)
     a.click()
     document.body.removeChild(a)

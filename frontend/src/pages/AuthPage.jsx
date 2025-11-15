@@ -86,7 +86,7 @@ export default function AuthPage() {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-2">
             <Activity className="h-10 w-10 text-blue-600" />
-            <span className="text-3xl font-bold text-blue-600">Climalaria</span>
+            <span className="text-3xl font-bold text-blue-600">Kilmalaria</span>
           </div>
           <p className="text-gray-600">AI-Powered Malaria Prediction</p>
         </div>

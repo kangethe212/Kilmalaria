@@ -1,5 +1,5 @@
 """
-Climalaria Smart Chatbot V2.0 - Professional Medical AI Assistant
+Kilmalaria Smart Chatbot V2.0 - Professional Medical AI Assistant
 Built from scratch with enhanced intelligence and medical accuracy
 """
 
@@ -8,7 +8,7 @@ import requests
 from typing import Dict, List, Tuple, Optional
 from datetime import datetime
 
-class ClimalariaAI:
+class KilmalariaAI:
     """
     Professional Medical AI Chatbot for Malaria Intelligence
     Features:
@@ -52,7 +52,7 @@ class ClimalariaAI:
             # === GREETINGS & WELCOME ===
             'greeting': {
                 'triggers': ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening', 'howdy'],
-                'response': """👋 **Hello! I'm Climalaria AI, your intelligent malaria assistant!**
+                'response': """👋 **Hello! I'm Kilmalaria AI, your intelligent malaria assistant!**
 
 I'm here to help you with:
 • 🔮 **Predict** malaria cases for any of Kenya's 47 counties
@@ -726,5 +726,5 @@ Just ask naturally:
 **What would you like to know?** 😊"""
 
 # Initialize chatbot
-chatbot = ClimalariaAI()
+chatbot = KilmalariaAI()
 

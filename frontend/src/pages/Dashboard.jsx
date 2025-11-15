@@ -88,7 +88,7 @@ export default function Dashboard() {
           <div className="flex justify-between h-16 items-center">
             <div className="flex items-center space-x-2">
               <Activity className="h-8 w-8 text-blue-600" />
-              <span className="text-2xl font-bold text-blue-600">Climalaria</span>
+              <span className="text-2xl font-bold text-blue-600">Kilmalaria</span>
             </div>
             <div className="flex items-center space-x-4">
               <span className="text-gray-700">

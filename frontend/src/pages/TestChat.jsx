@@ -7,7 +7,7 @@ export default function TestChat() {
     {
       id: 1,
       sender: 'bot',
-      text: '👋 Hello! I\'m Climalaria AI - Your Malaria Expert!\n\nI can help with:\n\n📊 Malaria Predictions\n🏥 Symptoms & Prevention\n💊 Treatment Information\n🗺️ County Statistics\n\nTry asking: "What are malaria symptoms?" or "Predict malaria in Kisumu"'
+      text: '👋 Hello! I\'m Kilmalaria AI - Your Malaria Expert!\n\nI can help with:\n\n📊 Malaria Predictions\n🏥 Symptoms & Prevention\n💊 Treatment Information\n🗺️ County Statistics\n\nTry asking: "What are malaria symptoms?" or "Predict malaria in Kisumu"'
     }
   ])
   const [input, setInput] = useState('')
@@ -105,7 +105,7 @@ export default function TestChat() {
         <div className="max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-2">
             <Activity className="h-6 w-6 text-blue-600" />
-            <span className="text-xl font-bold text-blue-600">Climalaria AI Test</span>
+            <span className="text-xl font-bold text-blue-600">Kilmalaria AI Test</span>
           </div>
           <div className="text-sm text-green-600 font-semibold">
             ✅ Chatbot Active

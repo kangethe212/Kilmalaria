@@ -88,7 +88,7 @@ export default function HowItWorksPage() {
           </div>
           
           <p className="text-lg text-blue-50 max-w-3xl">
-            Climalaria transforms complex epidemiological data into actionable insights using 
+            Kilmalaria transforms complex epidemiological data into actionable insights using 
             state-of-the-art machine learning and public health intelligence.
           </p>
         </div>
@@ -177,7 +177,7 @@ export default function HowItWorksPage() {
             className="inline-flex items-center space-x-2 bg-white text-blue-600 px-10 py-5 rounded-xl hover:bg-gray-50 transition-all font-bold text-lg shadow-xl transform hover:scale-105"
           >
             <Target className="w-6 h-6" />
-            <span>Try Climalaria Free</span>
+            <span>Try Kilmalaria Free</span>
           </Link>
         </div>
       </div>

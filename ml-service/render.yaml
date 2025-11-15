@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: kilmalaria-ml-service
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: FLASK_ENV
+        value: production
+

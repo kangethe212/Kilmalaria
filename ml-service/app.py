@@ -14,7 +14,19 @@ from chatbot_v2 import chatbot
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
+# Enable CORS for all routes - allow Firebase Hosting domain
+CORS(app, resources={
+    r"/*": {
+        "origins": [
+            "https://kilmalaria-7e485.web.app",
+            "https://kilmalaria-7e485.firebaseapp.com",
+            "http://localhost:5173",  # Local development
+            "http://localhost:3000"    # Local development
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"]
+    }
+})
 
 # Configure upload folder
 UPLOAD_FOLDER = 'uploads'
@@ -768,5 +780,8 @@ def index():
         })
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8000, debug=True)
+    # Use PORT environment variable for production (Railway, Render, etc.)
+    port = int(os.environ.get('PORT', 8000))
+    debug = os.environ.get('FLASK_ENV') != 'production'
+    app.run(host='0.0.0.0', port=port, debug=debug)
 

@@ -1,4 +1,4 @@
-# Firebase Setup Guide for Climalaria
+# Firebase Setup Guide for Kilmalaria
 
 ## Step 1: Create Firebase Project
 
@@ -8,7 +8,7 @@
 
 2. **Create New Project**
    - Click "Add project" or "Create a project"
-   - Project name: `Climalaria`
+   - Project name: `Kilmalaria`
    - Click "Continue"
 
 3. **Google Analytics (Optional)**
@@ -101,7 +101,7 @@ service cloud.firestore {
 2. **Add Web App**
    - Scroll down to "Your apps"
    - Click the web icon `</>`
-   - App nickname: `Climalaria Web`
+   - App nickname: `Kilmalaria Web`
    - ✅ Check "Also set up Firebase Hosting" (optional)
    - Click "Register app"
 
@@ -111,9 +111,9 @@ service cloud.firestore {
 ```javascript
 const firebaseConfig = {
   apiKey: "AIzaSyXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "climalaria-xxxxx.firebaseapp.com",
-  projectId: "climalaria-xxxxx",
-  storageBucket: "climalaria-xxxxx.appspot.com",
+  authDomain: "kilmalaria-xxxxx.firebaseapp.com",
+  projectId: "kilmalaria-xxxxx",
+  storageBucket: "kilmalaria-xxxxx.appspot.com",
   messagingSenderId: "123456789012",
   appId: "1:123456789012:web:abcdef123456"
 };
@@ -131,9 +131,9 @@ const firebaseConfig = {
 
 ```env
 VITE_FIREBASE_API_KEY=AIzaSyXXXXXXXXXXXXXXXXXXXXXX
-VITE_FIREBASE_AUTH_DOMAIN=climalaria-xxxxx.firebaseapp.com
-VITE_FIREBASE_PROJECT_ID=climalaria-xxxxx
-VITE_FIREBASE_STORAGE_BUCKET=climalaria-xxxxx.appspot.com
+VITE_FIREBASE_AUTH_DOMAIN=kilmalaria-xxxxx.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=kilmalaria-xxxxx
+VITE_FIREBASE_STORAGE_BUCKET=kilmalaria-xxxxx.appspot.com
 VITE_FIREBASE_MESSAGING_SENDER_ID=123456789012
 VITE_FIREBASE_APP_ID=1:123456789012:web:abcdef123456
 
@@ -217,5 +217,5 @@ Once set up, users can:
 
 ---
 
-**Complete these steps and your Climalaria platform will be fully functional!** 🚀
+**Complete these steps and your Kilmalaria platform will be fully functional!** 🚀
 

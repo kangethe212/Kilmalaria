@@ -1,0 +1,72 @@
+version: "3.1"
+
+intents:
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - ask_county_list
+  - predict_regional
+  - get_malaria_info
+  - ask_prevention
+  - ask_symptoms
+  - ask_treatment
+  - get_county_stats
+  - thank
+
+entities:
+  - county
+  - months
+  - number
+
+slots:
+  county:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: county
+  
+  months_ahead:
+    type: float
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: months
+      - type: from_entity
+        entity: number
+
+responses:
+  utter_greet:
+    - text: "Hello! I'm CliMalaria, your malaria prediction assistant. I can help you with:\n- Malaria predictions for Kenyan counties\n- County statistics\n- Prevention information\n- Symptoms and treatment\n\nHow can I assist you today?"
+  
+  utter_goodbye:
+    - text: "Goodbye! Stay safe and healthy. Remember to use mosquito nets and take antimalarial medication as prescribed."
+    - text: "Take care! If you need more malaria information, I'm here to help anytime."
+  
+  utter_ask_county:
+    - text: "Which county would you like predictions for?"
+  
+  utter_ask_months:
+    - text: "How many months ahead would you like me to predict? (1-12 months)"
+  
+  utter_default:
+    - text: "I'm sorry, I didn't understand that. I can help with malaria predictions, county information, symptoms, prevention, and treatment. What would you like to know?"
+  
+  utter_you_are_welcome:
+    - text: "You're welcome! Feel free to ask if you need anything else."
+    - text: "Happy to help! Let me know if you have more questions."
+
+actions:
+  - action_list_counties
+  - action_predict_malaria
+  - action_get_county_stats
+  - action_malaria_info
+  - action_prevention_info
+  - action_symptoms_info
+  - action_treatment_info
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+

@@ -1,0 +1,17 @@
+FROM python:3.9-slim
+
+WORKDIR /app
+
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy actions
+COPY actions /app/actions
+
+# Expose actions port
+EXPOSE 5055
+
+# Run actions server
+CMD ["rasa", "run", "actions", "--port", "5055"]
+

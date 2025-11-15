@@ -1,0 +1,14 @@
+# This file contains the endpoints configuration
+
+action_endpoint:
+  url: "http://rasa-actions:5055/webhook"
+
+# Tracker store (optional - for production use database)
+# tracker_store:
+#   type: sql
+#   dialect: "postgresql"
+#   url: "localhost"
+#   db: "rasa"
+#   username: "user"
+#   password: "password"
+

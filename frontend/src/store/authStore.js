@@ -1,15 +1,37 @@
 import { create } from 'zustand'
 import { authService } from '../services/firebase'
 
-export const useAuthStore = create((set) => ({
+export const useAuthStore = create((set, get) => ({
   user: null,
   loading: true,
   error: null,
 
   checkAuth: () => {
-    authService.onAuthStateChanged((user) => {
+    authService.onAuthStateChanged(async (user) => {
+      // Reload user to get latest email verification status
+      if (user) {
+        try {
+          await user.reload()
+        } catch (error) {
+          console.warn('Failed to reload user:', error)
+        }
+      }
       set({ user, loading: false })
     })
+  },
+
+  reloadUser: async () => {
+    const { user } = get()
+    if (user) {
+      try {
+        await user.reload()
+        set({ user })
+        return user
+      } catch (error) {
+        console.error('Failed to reload user:', error)
+        throw error
+      }
+    }
   },
 
   signUp: async (email, password, displayName) => {

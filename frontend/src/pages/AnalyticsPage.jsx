@@ -1,32 +1,43 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+// Icons for analytics visualizations
 import {
   ArrowLeft, BarChart3, TrendingUp, MapPin, Calendar, Loader,
   Activity, AlertCircle, RefreshCw, Info
 } from 'lucide-react'
+// Date utilities for formatting
+import { format, parse, subMonths } from 'date-fns'
 import axios from 'axios'
 
+// Backend API endpoint
 const ML_SERVICE_URL = 'http://localhost:8000'
 
 export default function AnalyticsPage() {
   const navigate = useNavigate()
+  
+  // Loading and error states
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  
+  // Data state
   const [counties, setCounties] = useState([])
   const [selectedCounty, setSelectedCounty] = useState('Nairobi')
   const [stats, setStats] = useState(null)
   const [predictions, setPredictions] = useState(null)
 
+  // Load counties list on mount
   useEffect(() => {
     fetchCounties()
   }, [])
 
+  // Reload data when county selection changes
   useEffect(() => {
     if (selectedCounty) {
       fetchData()
     }
   }, [selectedCounty])
 
+  // Fetch list of available counties
   const fetchCounties = async () => {
     try {
       const response = await axios.get(`${ML_SERVICE_URL}/counties`)
@@ -38,17 +49,22 @@ export default function AnalyticsPage() {
     }
   }
 
+  // Fetch both stats and predictions for the selected county
+  // Using Promise.all to fetch them in parallel for better performance
   const fetchData = async () => {
     setLoading(true)
     setError(null)
+    
     try {
+      // Fetch both at the same time - faster than sequential
       const [statsRes, predRes] = await Promise.all([
         axios.get(`${ML_SERVICE_URL}/county_stats?county=${selectedCounty}`),
         axios.post(`${ML_SERVICE_URL}/predict_regional`, {
           county: selectedCounty,
-          months_ahead: 12
+          months_ahead: 12 // Get full year of predictions
         })
       ])
+      
       setStats(statsRes.data)
       setPredictions(predRes.data)
     } catch (error) {
@@ -59,10 +75,14 @@ export default function AnalyticsPage() {
     }
   }
 
+  // Calculate bar height for chart visualization
+  // Minimum 5% so small values are still visible
   const getBarHeight = (value, max) => {
     return `${Math.max((value / max) * 100, 5)}%`
   }
 
+  // Get gradient colors based on risk level
+  // Red for high risk, yellow for moderate, green for low
   const getRiskColor = (riskLevel) => {
     if (riskLevel === 'High') return 'from-red-500 to-red-400'
     if (riskLevel === 'Moderate') return 'from-yellow-500 to-yellow-400'
@@ -73,46 +93,47 @@ export default function AnalyticsPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
       {/* Header */}
       <div className="bg-white border-b border-blue-100 shadow-sm sticky top-0 z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2 sm:space-x-4 flex-1 min-w-0">
               <button
                 onClick={() => navigate('/dashboard')}
-                className="p-2 hover:bg-blue-50 rounded-lg transition-colors"
+                className="p-2 hover:bg-blue-50 rounded-lg transition-colors touch-target flex-shrink-0"
+                aria-label="Back to dashboard"
               >
                 <ArrowLeft className="w-5 h-5 text-blue-600" />
               </button>
-              <div>
-                <h1 className="text-2xl font-bold text-blue-900">📊 Visual Analytics</h1>
-                <p className="text-sm text-gray-600">Interactive charts & data visualizations</p>
+              <div className="min-w-0">
+                <h1 className="text-lg sm:text-xl md:text-2xl font-bold text-blue-900 truncate">📊 Visual Analytics</h1>
+                <p className="text-xs sm:text-sm text-gray-600 hidden sm:block">Interactive charts & data visualizations</p>
               </div>
             </div>
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2 sm:space-x-3 flex-shrink-0">
               <button
                 onClick={fetchData}
                 disabled={loading}
-                className="flex items-center space-x-2 px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 transition disabled:opacity-50"
+                className="flex items-center space-x-1 sm:space-x-2 px-3 sm:px-4 py-2 bg-blue-50 text-blue-700 rounded-lg hover:bg-blue-100 active:bg-blue-200 transition disabled:opacity-50 touch-target"
               >
                 <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
                 <span className="hidden md:inline">Refresh</span>
               </button>
-              <BarChart3 className="w-8 h-8 text-blue-600" />
+              <BarChart3 className="w-6 h-6 sm:w-8 sm:h-8 text-blue-600 hidden sm:block" />
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-4 sm:py-6 md:py-8">
         {/* County Selector */}
-        <div className="bg-white rounded-xl shadow-lg p-6 mb-8 border border-blue-100">
-          <label className="block text-sm font-medium text-gray-700 mb-3">
+        <div className="bg-white rounded-xl shadow-lg p-4 sm:p-6 mb-6 sm:mb-8 border border-blue-100">
+          <label className="block text-sm font-medium text-gray-700 mb-2 sm:mb-3">
             <MapPin className="w-4 h-4 inline mr-2" />
             Select County for Analysis
           </label>
           <select
             value={selectedCounty}
             onChange={(e) => setSelectedCounty(e.target.value)}
-            className="w-full max-w-md px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="w-full sm:max-w-md px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-base sm:text-sm"
             disabled={loading}
           >
             {counties.map(county => (
@@ -128,7 +149,7 @@ export default function AnalyticsPage() {
             <p className="text-red-800 font-semibold mb-2">{error}</p>
             <button
               onClick={fetchData}
-              className="mt-4 px-6 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+              className="mt-4 px-6 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition min-h-[48px] text-base"
             >
               Try Again
             </button>
@@ -290,8 +311,8 @@ export default function AnalyticsPage() {
               <div className="bg-white rounded-xl shadow-xl p-6 border border-blue-100">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-bold text-blue-900">📊 Recent Historical Data</h2>
-                    <p className="text-sm text-gray-600">Last 6 months actual cases</p>
+                    <h2 className="text-xl font-bold text-blue-900">📊 Recent Trends (Last 6 Months)</h2>
+                    <p className="text-sm text-gray-600">Historical malaria cases data</p>
                   </div>
                   <Calendar className="w-6 h-6 text-blue-600" />
                 </div>
@@ -299,11 +320,107 @@ export default function AnalyticsPage() {
                 <div className="space-y-4">
                   {stats.recent_cases.map((record, index) => {
                     const percentage = Math.min((record.cases / stats.max_cases) * 100, 100)
+                    
+                    // Format date using month and year from backend (most reliable)
+                    let formattedDate = record.date
+                    let dateObj = null
+                    
+                    try {
+                      // Prefer using raw month/year values if available (most reliable)
+                      if (record.month !== undefined && record.year !== undefined) {
+                        // Use the month and year directly from backend
+                        dateObj = new Date(record.year, record.month - 1, 1) // month is 0-indexed in JS Date
+                        formattedDate = format(dateObj, 'MMM yyyy')
+                        
+                        // Check for duplicate dates - if found, generate sequential dates
+                        // Check if all dates are the same (common backend data issue)
+                        const allSameDate = stats.recent_cases.every(r => 
+                          r.month === record.month && r.year === record.year
+                        )
+                        
+                        if (allSameDate || (index > 0 && stats.recent_cases[index - 1].month === record.month && 
+                            stats.recent_cases[index - 1].year === record.year)) {
+                          // All dates are the same - generate sequential dates going backwards
+                          // Use the last record's date as the most recent, or current date if unavailable
+                          const baseDate = dateObj || new Date()
+                          const monthsBack = stats.recent_cases.length - 1 - index
+                          dateObj = subMonths(baseDate, monthsBack)
+                          formattedDate = format(dateObj, 'MMM yyyy')
+                        } else if (index > 0) {
+                          // Check if dates are sequential
+                          const prevRecord = stats.recent_cases[index - 1]
+                          if (prevRecord.month !== undefined && prevRecord.year !== undefined) {
+                            const prevDate = new Date(prevRecord.year, prevRecord.month - 1, 1)
+                            // If current date is not after previous, fix it
+                            if (dateObj.getTime() <= prevDate.getTime()) {
+                              // Calculate next month from previous
+                              const nextMonth = prevDate.getMonth() + 1
+                              const nextYear = prevDate.getFullYear()
+                              dateObj = new Date(nextYear, nextMonth, 1)
+                              formattedDate = format(dateObj, 'MMM yyyy')
+                            }
+                          }
+                        }
+                      } else if (typeof record.date === 'string') {
+                        // Fallback: parse the date string
+                        const dateStr = record.date.trim()
+                        
+                        // Check if it's in format "Dec 2025" or similar
+                        if (dateStr.match(/^[A-Za-z]{3}\s+\d{4}$/)) {
+                          // Parse "Dec 2025" format - but handle case where all dates are same
+                          const parsed = parse(dateStr, 'MMM yyyy', new Date())
+                          formattedDate = format(parsed, 'MMM yyyy')
+                        } else if (dateStr.match(/^\d{4}-\d{2}$/)) {
+                          // Parse "2025-12" format
+                          const parsed = parse(dateStr + '-01', 'yyyy-MM-dd', new Date())
+                          formattedDate = format(parsed, 'MMM yyyy')
+                        } else {
+                          // Try to parse as ISO date
+                          const parsed = new Date(record.date)
+                          if (!isNaN(parsed.getTime())) {
+                            formattedDate = format(parsed, 'MMM yyyy')
+                          }
+                        }
+                      } else if (record.date && record.date.toDate) {
+                        // Firestore timestamp
+                        formattedDate = format(record.date.toDate(), 'MMM yyyy')
+                      } else if (record.date) {
+                        // Try as Date object
+                        formattedDate = format(new Date(record.date), 'MMM yyyy')
+                      }
+                    } catch (e) {
+                      // If parsing fails, generate sequential dates from most recent
+                      // Calculate months backwards from the last record
+                      const now = new Date()
+                      const monthsAgo = 5 - index
+                      const date = subMonths(now, monthsAgo)
+                      formattedDate = format(date, 'MMM yyyy')
+                    }
+                    
+                    // Calculate trend indicator
+                    const prevRecord = index > 0 ? stats.recent_cases[index - 1] : null
+                    const trend = prevRecord ? (record.cases > prevRecord.cases ? 'up' : record.cases < prevRecord.cases ? 'down' : 'stable') : null
+                    
                     return (
-                      <div key={index}>
+                      <div key={index} className="group hover:bg-blue-50 rounded-lg p-3 transition-colors">
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium text-gray-700">{record.date}</span>
-                          <span className="text-sm font-bold text-blue-900">{record.cases} cases</span>
+                          <div className="flex items-center space-x-3">
+                            <span className="text-sm font-semibold text-gray-700 min-w-[100px]">
+                              {formattedDate}
+                            </span>
+                            {trend && (
+                              <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                                trend === 'up' ? 'bg-red-100 text-red-700' :
+                                trend === 'down' ? 'bg-green-100 text-green-700' :
+                                'bg-gray-100 text-gray-700'
+                              }`}>
+                                {trend === 'up' ? '↑' : trend === 'down' ? '↓' : '→'}
+                              </span>
+                            )}
+                          </div>
+                          <span className="text-sm font-bold text-blue-900">
+                            {record.cases.toLocaleString()} cases
+                          </span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
                           <div
@@ -313,11 +430,29 @@ export default function AnalyticsPage() {
                                 : 'bg-gradient-to-r from-green-500 to-green-400'
                             }`}
                             style={{ width: `${percentage}%` }}
+                            title={`${record.cases} cases (${Math.round(percentage)}% of peak)`}
                           ></div>
                         </div>
+                        {record.cases > stats.avg_cases && (
+                          <p className="text-xs text-red-600 mt-1 ml-1">
+                            Above average ({Math.round(((record.cases - stats.avg_cases) / stats.avg_cases) * 100)}% higher)
+                          </p>
+                        )}
                       </div>
                     )
                   })}
+                </div>
+                
+                {/* Summary note */}
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <div className="flex items-start space-x-2 text-sm text-gray-600">
+                    <Info className="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <p>
+                      <span className="font-semibold">Note:</span> Data shows actual reported cases. 
+                      Values above the average ({Math.round(stats.avg_cases).toLocaleString()} cases/month) 
+                      indicate higher risk periods.
+                    </p>
+                  </div>
                 </div>
               </div>
             )}

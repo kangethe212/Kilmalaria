@@ -1,5 +1,6 @@
 import { Navigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
+import EmailVerificationRequired from '../pages/EmailVerificationRequired'
 
 export default function ProtectedRoute({ children }) {
   const { user, loading } = useAuthStore()
@@ -14,6 +15,11 @@ export default function ProtectedRoute({ children }) {
 
   if (!user) {
     return <Navigate to="/auth" replace />
+  }
+
+  // Check if email is verified
+  if (user.email && !user.emailVerified) {
+    return <EmailVerificationRequired />
   }
 
   return children

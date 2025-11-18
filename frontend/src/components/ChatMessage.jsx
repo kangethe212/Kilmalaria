@@ -46,16 +46,16 @@ export default function ChatMessage({ message, formatTime }) {
   const isUser = message.sender === 'user'
   
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
-      <div className={`flex items-start space-x-2 max-w-[80%] ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-3 sm:mb-4`}>
+      <div className={`flex items-start space-x-2 sm:space-x-3 max-w-[85%] sm:max-w-[80%] ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
         {/* Avatar */}
-        <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-600' : 'bg-gray-600'}`}>
-          {isUser ? <User className="h-5 w-5 text-white" /> : <Bot className="h-5 w-5 text-white" />}
+        <div className={`flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center ${isUser ? 'bg-blue-600' : 'bg-gray-600'}`}>
+          {isUser ? <User className="h-4 w-4 sm:h-5 sm:w-5 text-white" /> : <Bot className="h-4 w-4 sm:h-5 sm:w-5 text-white" />}
         </div>
 
         {/* Message Bubble */}
-        <div className={`px-4 py-3 rounded-2xl ${isUser ? 'bg-blue-600 text-white' : 'bg-white shadow-sm text-gray-800'}`}>
-          <div className="leading-relaxed text-sm">
+        <div className={`px-3 py-2 sm:px-4 sm:py-3 rounded-2xl ${isUser ? 'bg-blue-600 text-white' : 'bg-white shadow-sm text-gray-800'}`}>
+          <div className="leading-relaxed text-sm sm:text-base break-words">
             {isUser ? (
               <div className="text-white">{message.text}</div>
             ) : (
@@ -63,7 +63,7 @@ export default function ChatMessage({ message, formatTime }) {
             )}
           </div>
           {message.timestamp && (
-            <div className={`text-xs mt-2 ${isUser ? 'text-blue-100' : 'text-gray-500'}`}>
+            <div className={`text-xs mt-1.5 sm:mt-2 ${isUser ? 'text-blue-100' : 'text-gray-500'}`}>
               {formatTime(message.timestamp)}
             </div>
           )}

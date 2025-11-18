@@ -2,24 +2,31 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useAuthStore } from '../store/authStore'
 import { authService } from '../services/firebase'
+// Icons for the auth form
 import { Activity, Mail, Lock, User, Eye, EyeOff } from 'lucide-react'
 
 export default function AuthPage() {
+  // Form mode - sign up or sign in
   const [isSignUp, setIsSignUp] = useState(false)
+  
+  // Form fields
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [displayName, setDisplayName] = useState('')
+  
+  // UI state
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const [emailSent, setEmailSent] = useState(false)
   
+  // Auth methods from store
   const { signIn, signUp, signInWithGoogle, signInWithMicrosoft } = useAuthStore()
   const navigate = useNavigate()
 
-  const [emailSent, setEmailSent] = useState(false)
-
+  // Handle form submission - sign up or sign in
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
@@ -28,7 +35,7 @@ export default function AuthPage() {
 
     try {
       if (isSignUp) {
-        // Validate password confirmation
+        // Sign up flow - validate inputs first
         if (password !== confirmPassword) {
           setError('Passwords do not match')
           setLoading(false)
@@ -39,11 +46,22 @@ export default function AuthPage() {
           setLoading(false)
           return
         }
+        
+        // Create the account
         await signUp(email, password, displayName)
         setEmailSent(true)
-        // Don't navigate immediately - show verification message
+        // Don't navigate - show verification message instead
       } else {
-        await signIn(email, password)
+        // Sign in flow
+        const user = await signIn(email, password)
+        
+        // Check if email needs verification
+        if (user && user.email && !user.emailVerified) {
+          setError('Please verify your email before signing in. Check your inbox for the verification link.')
+          return
+        }
+        
+        // Success - go to dashboard
         navigate('/dashboard')
       }
     } catch (err) {
@@ -53,11 +71,13 @@ export default function AuthPage() {
     }
   }
 
+  // Google OAuth sign-in handler
   const handleGoogleSignIn = async () => {
     setError('')
     setLoading(true)
     try {
-      await signInWithGoogle()
+      const user = await signInWithGoogle()
+      // Google accounts are automatically verified - no need to check
       navigate('/dashboard')
     } catch (err) {
       setError(err.message)
@@ -66,11 +86,13 @@ export default function AuthPage() {
     }
   }
 
+  // Microsoft OAuth sign-in handler
   const handleMicrosoftSignIn = async () => {
     setError('')
     setLoading(true)
     try {
-      await signInWithMicrosoft()
+      const user = await signInWithMicrosoft()
+      // Microsoft accounts are automatically verified - no need to check
       navigate('/dashboard')
     } catch (err) {
       setError(err.message)
@@ -80,20 +102,20 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-blue-100 flex items-center justify-center px-3 sm:px-4 py-4 sm:py-8">
       <div className="max-w-md w-full">
         {/* Logo */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6 sm:mb-8">
           <div className="flex items-center justify-center space-x-2 mb-2">
-            <Activity className="h-10 w-10 text-blue-600" />
-            <span className="text-3xl font-bold text-blue-600">Kilmalaria</span>
+            <Activity className="h-8 w-8 sm:h-10 sm:w-10 text-blue-600" />
+            <span className="text-2xl sm:text-3xl font-bold text-blue-600">Kilmalaria</span>
           </div>
-          <p className="text-gray-600">AI-Powered Malaria Prediction</p>
+          <p className="text-sm sm:text-base text-gray-600">AI-Powered Malaria Prediction</p>
         </div>
 
         {/* Auth Form */}
         <div className="card">
-          <h2 className="text-2xl font-bold text-center mb-6">
+          <h2 className="text-xl sm:text-2xl font-bold text-center mb-4 sm:mb-6">
             {isSignUp ? 'Create Account' : 'Welcome Back'}
           </h2>
 
@@ -231,7 +253,7 @@ export default function AuthPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full btn-primary py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Processing...' : (isSignUp ? 'Sign Up' : 'Sign In')}
             </button>
@@ -247,18 +269,19 @@ export default function AuthPage() {
               </div>
             </div>
 
-            <div className="mt-6 grid grid-cols-2 gap-3">
+            {/* OAuth buttons - full width on mobile, side by side on larger screens */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-3">
               <button
                 onClick={handleGoogleSignIn}
                 disabled={loading}
-                className="btn-secondary py-2 text-sm disabled:opacity-50"
+                className="btn-secondary disabled:opacity-50 flex-1"
               >
                 Google
               </button>
               <button
                 onClick={handleMicrosoftSignIn}
                 disabled={loading}
-                className="btn-secondary py-2 text-sm disabled:opacity-50"
+                className="btn-secondary disabled:opacity-50 flex-1"
               >
                 Microsoft
               </button>

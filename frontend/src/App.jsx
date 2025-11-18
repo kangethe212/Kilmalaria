@@ -9,7 +9,6 @@ const HowItWorksPage = lazy(() => import('./pages/HowItWorksPage'))
 const AuthPage = lazy(() => import('./pages/AuthPage'))
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const ChatPage = lazy(() => import('./pages/ChatPage'))
-const TestChat = lazy(() => import('./pages/TestChat'))
 const PredictionsPage = lazy(() => import('./pages/PredictionsPage'))
 const CountiesPage = lazy(() => import('./pages/CountiesPage'))
 const ClimateDataPage = lazy(() => import('./pages/ClimateDataPage'))
@@ -17,6 +16,7 @@ const PreventionPage = lazy(() => import('./pages/PreventionPage'))
 const AnalyticsPage = lazy(() => import('./pages/AnalyticsPage'))
 const DataUploadPage = lazy(() => import('./pages/DataUploadPage'))
 const VerifyEmailPage = lazy(() => import('./pages/VerifyEmailPage'))
+const EmailVerificationRequired = lazy(() => import('./pages/EmailVerificationRequired'))
 
 // Loading component
 function LoadingScreen() {
@@ -52,46 +52,45 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/features" element={<FeaturesPage />} />
           <Route path="/how-it-works" element={<HowItWorksPage />} />
-          <Route path="/test" element={<TestChat />} />
           <Route 
             path="/auth" 
-            element={user ? <Navigate to="/dashboard" /> : <AuthPage />} 
+            element={user && user.emailVerified ? <Navigate to="/dashboard" /> : user ? <EmailVerificationRequired /> : <AuthPage />} 
           />
           <Route 
             path="/dashboard" 
-            element={user ? <Dashboard /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <Dashboard /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/chat" 
-            element={user ? <ChatPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <ChatPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/chat/:chatId" 
-            element={user ? <ChatPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <ChatPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/predictions" 
-            element={user ? <PredictionsPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <PredictionsPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/counties" 
-            element={user ? <CountiesPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <CountiesPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/climate" 
-            element={user ? <ClimateDataPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <ClimateDataPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/prevention" 
-            element={user ? <PreventionPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <PreventionPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/analytics" 
-            element={user ? <AnalyticsPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <AnalyticsPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route 
             path="/upload" 
-            element={user ? <DataUploadPage /> : <Navigate to="/auth" />} 
+            element={user && user.emailVerified ? <DataUploadPage /> : user ? <EmailVerificationRequired /> : <Navigate to="/auth" />} 
           />
           <Route path="/verify-email" element={<VerifyEmailPage />} />
         </Routes>

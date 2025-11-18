@@ -1,43 +1,69 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+// Icons we'll need throughout the page
 import { 
   Activity, Map, MessageCircle, Shield, TrendingUp, Users, 
   Cloud, BarChart3, BookOpen, Mail, Phone, Send, 
   Brain, Eye, Heart, ChevronDown, ChevronUp, CheckCircle,
   Zap, Target, Database, Cpu, LineChart, AlertCircle,
-  Microscope, Stethoscope, Clipboard, Award, Upload
+  Microscope, Stethoscope, Clipboard, Award, Upload, Menu, X
 } from 'lucide-react'
 
 export default function LandingPage() {
+  // FAQ accordion state - tracks which one is open
   const [openFaq, setOpenFaq] = useState(null)
-  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
+  
+  // Contact form state
+  const [contactForm, setContactForm] = useState({ 
+    name: '', 
+    email: '', 
+    message: '' 
+  })
+  
+  // Mobile menu toggle
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
+  // Simple FAQ toggle - if clicking the same one, close it
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index)
   }
 
+  // Handle contact form - for now just shows alert
+  // TODO: Connect to backend API later
   const handleContactSubmit = (e) => {
     e.preventDefault()
-    // Handle contact form submission
+    // Simple feedback for now
     alert('Message sent! We will get back to you soon.')
+    // Clear the form
     setContactForm({ name: '', email: '', message: '' })
+  }
+
+  // Helper to close mobile menu when navigating
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false)
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50">
-      {/* Navbar */}
+      {/* Main Navigation - sticky so it stays visible while scrolling */}
       <nav className="bg-white/95 backdrop-blur-sm shadow-md sticky top-0 z-50 border-b-2 border-blue-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-20 items-center">
-            <div className="flex items-center space-x-3">
-              <div className="bg-gradient-to-br from-blue-600 to-green-600 p-2 rounded-xl shadow-lg">
-                <Microscope className="h-8 w-8 text-white" />
+          <div className="flex justify-between h-16 sm:h-20 items-center">
+            {/* Logo and branding */}
+            <div className="flex items-center space-x-2 sm:space-x-3">
+              {/* Logo icon with gradient background */}
+              <div className="bg-gradient-to-br from-blue-600 to-green-600 p-1.5 sm:p-2 rounded-xl shadow-lg">
+                <Microscope className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
               <div>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
+                {/* Main logo text with gradient effect */}
+                <span className="text-xl sm:text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-green-600 bg-clip-text text-transparent">
                   Kilmalaria
                 </span>
-                <p className="text-xs text-gray-600 font-medium">AI-Powered Malaria Intelligence</p>
+                {/* Tagline - hidden on mobile to save space */}
+                <p className="text-[10px] sm:text-xs text-gray-600 font-medium hidden sm:block">
+                  AI-Powered Malaria Intelligence
+                </p>
               </div>
             </div>
             <div className="hidden md:flex space-x-8">
@@ -47,21 +73,60 @@ export default function LandingPage() {
               <a href="#impact" className="text-gray-700 hover:text-blue-600 transition font-medium">Impact</a>
               <a href="#team" className="text-gray-700 hover:text-blue-600 transition font-medium">Team</a>
             </div>
-            <div className="flex space-x-4">
+            <div className="hidden md:flex space-x-4">
               <Link to="/auth" className="text-blue-600 hover:text-blue-700 font-semibold transition">
                 Log In
               </Link>
-              <Link to="/auth" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition font-semibold shadow-lg hover:shadow-xl">
+              <Link to="/auth" className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 sm:px-8 py-2 sm:py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition font-semibold shadow-lg hover:shadow-xl text-sm sm:text-base">
                 Get Started Free
               </Link>
             </div>
+            {/* Mobile hamburger menu - only visible on small screens */}
+            <button
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors touch-target"
+              aria-label="Toggle menu"
+            >
+              {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
           </div>
+          
+          {/* Mobile menu dropdown - slides down when opened */}
+          {mobileMenuOpen && (
+            <div className="md:hidden pb-4 border-t border-gray-200 mt-2 pt-4">
+              <div className="flex flex-col space-y-3">
+                <Link to="/features" onClick={closeMobileMenu} className="text-gray-700 hover:text-blue-600 transition font-medium py-2 px-2 rounded-lg hover:bg-gray-50">
+                  Features
+                </Link>
+                <Link to="/how-it-works" onClick={closeMobileMenu} className="text-gray-700 hover:text-blue-600 transition font-medium py-2 px-2 rounded-lg hover:bg-gray-50">
+                  How It Works
+                </Link>
+                <a href="#technology" onClick={closeMobileMenu} className="text-gray-700 hover:text-blue-600 transition font-medium py-2 px-2 rounded-lg hover:bg-gray-50">
+                  Technology
+                </a>
+                <a href="#impact" onClick={closeMobileMenu} className="text-gray-700 hover:text-blue-600 transition font-medium py-2 px-2 rounded-lg hover:bg-gray-50">
+                  Impact
+                </a>
+                <a href="#team" onClick={closeMobileMenu} className="text-gray-700 hover:text-blue-600 transition font-medium py-2 px-2 rounded-lg hover:bg-gray-50">
+                  Team
+                </a>
+                <div className="pt-2 border-t border-gray-200 space-y-2">
+                  <Link to="/auth" onClick={closeMobileMenu} className="block text-blue-600 hover:text-blue-700 font-semibold transition py-2 px-2 rounded-lg hover:bg-blue-50">
+                    Log In
+                  </Link>
+                  <Link to="/auth" onClick={closeMobileMenu} className="block bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition font-semibold shadow-lg text-center">
+                    Get Started Free
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
 
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-green-600 py-24 overflow-hidden">
-        {/* Animated Background Pattern */}
+      {/* Hero Section - the big banner at the top */}
+      <div className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-green-600 py-12 sm:py-16 md:py-20 lg:py-24 overflow-hidden">
+        {/* Subtle pattern overlay for texture - makes it less flat */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute inset-0" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -70,41 +135,43 @@ export default function LandingPage() {
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            {/* Medical Badge */}
+            {/* Trust badge - shows we're aligned with WHO standards */}
             <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm px-6 py-3 rounded-full mb-8 border border-white/30">
               <Award className="w-5 h-5 text-white" />
               <span className="text-white font-semibold">WHO-Aligned Medical Intelligence Platform</span>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black text-white mb-6 leading-tight">
+            {/* Main headline - big and bold */}
+            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-4 sm:mb-6 leading-tight px-2">
               Revolutionizing Malaria
               <br />
+              {/* Gradient text for the key phrase */}
               <span className="bg-gradient-to-r from-green-300 to-blue-300 bg-clip-text text-transparent">
                 Outbreak Prediction
               </span>
             </h1>
-            <p className="text-xl md:text-2xl text-blue-100 mb-10 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-100 mb-6 sm:mb-10 max-w-4xl mx-auto leading-relaxed px-4">
               Advanced AI-powered epidemiological forecasting system combining machine learning, 
               climate science, and public health intelligence to predict and prevent malaria outbreaks across Kenya.
             </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 mb-12">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-8 sm:mb-12 px-4">
               <Link 
                 to="/auth" 
-                className="bg-white text-blue-600 px-10 py-5 rounded-xl hover:bg-gray-50 transition-all font-bold text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 flex items-center justify-center space-x-2"
+                className="bg-white text-blue-600 px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-xl hover:bg-gray-50 active:bg-gray-100 transition-all font-bold text-sm sm:text-base md:text-lg shadow-2xl hover:shadow-3xl transform hover:scale-105 active:scale-95 flex items-center justify-center space-x-2 touch-manipulation"
               >
-                <Zap className="w-5 h-5" />
+                <Zap className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>Start Predicting Now</span>
               </Link>
               <Link 
                 to="/how-it-works" 
-                className="bg-transparent text-white px-10 py-5 rounded-xl hover:bg-white/10 transition-all font-bold text-lg border-2 border-white backdrop-blur-sm flex items-center justify-center space-x-2"
+                className="bg-transparent text-white px-6 sm:px-8 md:px-10 py-3 sm:py-4 md:py-5 rounded-xl hover:bg-white/10 active:bg-white/20 transition-all font-bold text-sm sm:text-base md:text-lg border-2 border-white backdrop-blur-sm flex items-center justify-center space-x-2 touch-manipulation"
               >
-                <Eye className="w-5 h-5" />
+                <Eye className="w-4 h-4 sm:w-5 sm:h-5" />
                 <span>See How It Works</span>
               </Link>
             </div>
 
-            {/* Credibility Badges */}
+            {/* Key stats that build trust - shown as badges */}
             <div className="flex flex-wrap justify-center gap-6 text-white/90 text-sm">
               <div className="flex items-center space-x-2">
                 <CheckCircle className="w-5 h-5 text-green-300" />
@@ -125,7 +192,7 @@ export default function LandingPage() {
             </div>
           </div>
 
-          {/* Clinical Stats Cards */}
+          {/* Stats cards - these numbers matter for credibility */}
           <div className="mt-20 grid grid-cols-1 md:grid-cols-4 gap-6">
             <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 text-center transform hover:scale-105 transition border-t-4 border-blue-400">
               <Microscope className="w-12 h-12 text-blue-600 mx-auto mb-4" />
@@ -155,9 +222,10 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Features Section */}
+      {/* Features Section - showcase what the platform can do */}
       <div id="features" className="bg-gray-50 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">Key Features</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -165,6 +233,7 @@ export default function LandingPage() {
             </p>
           </div>
           
+          {/* Feature cards grid - responsive layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <Link to="/auth" className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition cursor-pointer transform hover:scale-105 border-l-4 border-blue-600">
               <div className="bg-gradient-to-br from-blue-100 to-blue-200 w-16 h-16 rounded-lg flex items-center justify-center mb-6 shadow-md">
